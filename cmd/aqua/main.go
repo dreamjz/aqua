@@ -25,11 +25,18 @@ type HasExitCode interface {
 }
 
 func main() {
+	// runtime.New 返回
+	// &Runtime{
+	//		GOOS:   goos(),
+	//		GOARCH: goarch(),
+	//	}
 	rt := runtime.New()
+	// 创建 logrus 实例
 	logE := log.New(rt, version)
+	// 启动 CLI
 	if err := core(logE, rt); err != nil {
 		var hasExitCode HasExitCode
-		if errors.As(err, &hasExitCode) {
+		if errors.As(err, &hasExitCode) { // 是否有 EXIT_CODE
 			code := hasExitCode.ExitCode()
 			logerr.WithError(logE.WithField("exit_code", code), err).Debug("command failed")
 			os.Exit(code)
@@ -51,7 +58,11 @@ func core(logE *logrus.Entry, rt *runtime.Runtime) error {
 		LogE:    logE,
 		Runtime: rt,
 	}
+	// 返回一个带 Done Channel 的 Ctx
+	// Stop 函数用于释放资源？
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer stop()
+	// 启动 CLI 程序
+	// nolint 和 wrapcheck 是什么？
 	return runner.Run(ctx, os.Args...) //nolint:wrapcheck
 }

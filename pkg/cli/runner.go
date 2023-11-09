@@ -128,6 +128,7 @@ func parseTags(tags []string) map[string]struct{} {
 }
 
 func (r *Runner) Run(ctx context.Context, args ...string) error {
+	// 编译时间 ?
 	compiledDate, err := time.Parse(time.RFC3339, r.LDFlags.Date)
 	if err != nil {
 		compiledDate = time.Now()
@@ -135,10 +136,10 @@ func (r *Runner) Run(ctx context.Context, args ...string) error {
 	app := cli.App{
 		Name:           "aqua",
 		Usage:          "Version Manager of CLI. https://aquaproj.github.io/",
-		Version:        r.LDFlags.Version + " (" + r.LDFlags.Commit + ")",
-		Compiled:       compiledDate,
+		Version:        r.LDFlags.Version + " (" + r.LDFlags.Commit + ")", // 版本号+Commit Hash
+		Compiled:       compiledDate,                                      // 编译时间
 		ExitErrHandler: exitErrHandlerFunc,
-		Flags: []cli.Flag{
+		Flags: []cli.Flag{ // CLI Flags
 			&cli.StringFlag{
 				Name:    "log-level",
 				Usage:   "log level",
@@ -159,29 +160,30 @@ func (r *Runner) Run(ctx context.Context, args ...string) error {
 				Usage: "cpu profile output file path",
 			},
 		},
-		EnableBashCompletion: true,
-		Commands: []*cli.Command{
-			r.newInitCommand(),
-			r.newInfoCommand(),
-			r.newInitPolicyCommand(),
-			r.newPolicyCommand(),
-			r.newInstallCommand(),
-			r.newUpdateAquaCommand(),
-			r.newGenerateCommand(),
-			r.newWhichCommand(),
-			r.newExecCommand(),
-			r.newListCommand(),
-			r.newGenerateRegistryCommand(),
-			r.newCompletionCommand(),
-			r.newVersionCommand(),
-			r.newCpCommand(),
-			r.newRootDirCommand(),
-			r.newUpdateChecksumCommand(),
-			r.newRemoveCommand(),
-			r.newUpdateCommand(),
+		EnableBashCompletion: true, // 开启 Bash 自动补全
+		Commands: []*cli.Command{ // 子命令
+			r.newInitCommand(),             // aqua init <filepath> 初始化配置文件，默认为 aqua.yaml
+			r.newInfoCommand(),             // aqua info 获取当前 aqua 信息
+			r.newInitPolicyCommand(),       // Deprecated
+			r.newPolicyCommand(),           // aqua policy 是什么？
+			r.newInstallCommand(),          // aqua install, i 安装 tools
+			r.newUpdateAquaCommand(),       // aqua update-aqua, upa 更新 aqua
+			r.newGenerateCommand(),         // aqua generate, g 搜索注册中心，查询可用的包
+			r.newWhichCommand(),            // aqua which 输出指定 command 所在的文件位置
+			r.newExecCommand(),             // aqua exec 执行指定 command
+			r.newListCommand(),             // aqua list 列出注册中心的所有包
+			r.newGenerateRegistryCommand(), // aqua generate-registry, gr 生成配置中心文件？
+			r.newCompletionCommand(),       // aqua completion 生成自动补全脚本
+			r.newVersionCommand(),          // aqua version 返回版本信息
+			r.newCpCommand(),               // aqua cp 拷贝可执行文件
+			r.newRootDirCommand(),          // aqua root-dir 输出 $AQUA_ROOT_DIR
+			r.newUpdateChecksumCommand(),   // aqua update-checksum 更新或创建 aqua-checksums.json
+			r.newRemoveCommand(),           // aqua remove, rm 卸载 package
+			r.newUpdateCommand(),           // aqua update, up 更新注册中心和包
 		},
 	}
-
+	// 启动 CLI App
+	// 使用的 https://github.com/urfave/cli 框架构建
 	return app.RunContext(ctx, args) //nolint:wrapcheck
 }
 

@@ -1,6 +1,8 @@
 ---
-name: test
+name: pr action test test
 on:
+  push:
+  pull_request:
   workflow_call:
     inputs:
       docker_is_changed:

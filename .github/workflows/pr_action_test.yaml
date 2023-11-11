@@ -20,7 +20,9 @@ jobs:
       - run: aqua i -l
         env:
           AQUA_GITHUB_TOKEN: ${{github.token}}
-      - run: golangci-lint run --timeout 120s
+      - run: |-
+          golangci-lint version
+          golangci-lint run --timeout 120s
         env:
           AQUA_GITHUB_TOKEN: ${{github.token}}
       - run: go test -v ./... -race -covermode=atomic

@@ -48,7 +48,7 @@ func TestCargoVersionGetter_Get(t *testing.T) {
 			t.Parallel()
 			cargoClient := versiongetter.NewMockCargoClient(d.versions)
 			cargoGetter := versiongetter.NewCargo(cargoClient)
-			version, err := cargoGetter.Get(ctx, d.pkg, d.filters)
+			version, err := cargoGetter.Get(ctx, log.New(runtime.New(), ""), d.pkg, d.filters)
 			if err != nil {
 				if d.isErr {
 					return
@@ -111,7 +111,7 @@ func TestCargoVersionGetter_List(t *testing.T) {
 			t.Parallel()
 			cargoClient := versiongetter.NewMockCargoClient(d.versions)
 			cargoGetter := versiongetter.NewCargo(cargoClient)
-			items, err := cargoGetter.List(ctx, d.pkg, d.filters, -1)
+			items, err := cargoGetter.List(ctx, log.New(runtime.New(), ""), d.pkg, d.filters, -1)
 			if err != nil {
 				if d.isErr {
 					return

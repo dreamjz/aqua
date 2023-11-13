@@ -57,7 +57,7 @@ func TestGitHubReleaseVersionGetter_Get(t *testing.T) { //nolint:dupl
 			t.Parallel()
 			ghReleaseClient := versiongetter.NewMockGitHubReleaseClient(d.releases)
 			ghReleaseGetter := versiongetter.NewGitHubRelease(ghReleaseClient)
-			version, err := ghReleaseGetter.Get(ctx, d.pkg, d.filters)
+			version, err := ghReleaseGetter.Get(ctx, log.New(runtime.New(), ""), d.pkg, d.filters)
 			if err != nil {
 				if d.isErr {
 					return
@@ -145,7 +145,7 @@ body(v1)`,
 			t.Parallel()
 			ghReleaseClient := versiongetter.NewMockGitHubReleaseClient(d.releases)
 			ghReleaseGetter := versiongetter.NewGitHubRelease(ghReleaseClient)
-			items, err := ghReleaseGetter.List(ctx, d.pkg, d.filters, -1)
+			items, err := ghReleaseGetter.List(ctx, log.New(runtime.New(), ""), d.pkg, d.filters, -1)
 			if err != nil {
 				if d.isErr {
 					return

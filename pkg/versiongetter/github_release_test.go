@@ -2,9 +2,10 @@ package versiongetter_test
 
 import (
 	"context"
+	"testing"
+
 	"github.com/aquaproj/aqua/v2/pkg/log"
 	"github.com/aquaproj/aqua/v2/pkg/runtime"
-	"testing"
 
 	"github.com/aquaproj/aqua/v2/pkg/config/registry"
 	"github.com/aquaproj/aqua/v2/pkg/fuzzyfinder"

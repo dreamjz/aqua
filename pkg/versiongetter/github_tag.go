@@ -3,6 +3,7 @@ package versiongetter
 import (
 	"context"
 	"fmt"
+
 	"github.com/sirupsen/logrus"
 
 	"github.com/aquaproj/aqua/v2/pkg/config/registry"

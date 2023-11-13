@@ -4,11 +4,10 @@ import (
 	"context"
 	"testing"
 
-	"github.com/aquaproj/aqua/v2/pkg/log"
-	"github.com/aquaproj/aqua/v2/pkg/runtime"
-
 	"github.com/aquaproj/aqua/v2/pkg/config/registry"
 	"github.com/aquaproj/aqua/v2/pkg/fuzzyfinder"
+	"github.com/aquaproj/aqua/v2/pkg/log"
+	"github.com/aquaproj/aqua/v2/pkg/runtime"
 	"github.com/aquaproj/aqua/v2/pkg/versiongetter"
 	"github.com/google/go-cmp/cmp"
 )

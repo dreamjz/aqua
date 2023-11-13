@@ -4,11 +4,10 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/sirupsen/logrus"
-
 	"github.com/aquaproj/aqua/v2/pkg/config/registry"
 	"github.com/aquaproj/aqua/v2/pkg/fuzzyfinder"
 	"github.com/aquaproj/aqua/v2/pkg/github"
+	"github.com/sirupsen/logrus"
 )
 
 type GitHubTagVersionGetter struct {

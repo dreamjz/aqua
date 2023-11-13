@@ -3,6 +3,7 @@ package versiongetter
 import (
 	"context"
 	"errors"
+
 	"github.com/aquaproj/aqua/v2/pkg/config/registry"
 	"github.com/aquaproj/aqua/v2/pkg/fuzzyfinder"
 	"github.com/sirupsen/logrus"

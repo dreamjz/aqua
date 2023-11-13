@@ -2,6 +2,7 @@ package versiongetter
 
 import (
 	"context"
+
 	"github.com/sirupsen/logrus"
 
 	"github.com/aquaproj/aqua/v2/pkg/config/registry"

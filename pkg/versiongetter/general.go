@@ -2,6 +2,7 @@ package versiongetter
 
 import (
 	"context"
+	"github.com/sirupsen/logrus"
 
 	"github.com/aquaproj/aqua/v2/pkg/config/registry"
 	"github.com/aquaproj/aqua/v2/pkg/fuzzyfinder"
@@ -31,12 +32,12 @@ func (g *GeneralVersionGetter) Get(ctx context.Context, pkg *registry.PackageInf
 	return getter.Get(ctx, pkg, filters) //nolint:wrapcheck
 }
 
-func (g *GeneralVersionGetter) List(ctx context.Context, pkg *registry.PackageInfo, filters []*Filter, limit int) ([]*fuzzyfinder.Item, error) {
+func (g *GeneralVersionGetter) List(ctx context.Context, logE *logrus.Entry, pkg *registry.PackageInfo, filters []*Filter, limit int) ([]*fuzzyfinder.Item, error) {
 	getter := g.get(pkg)
 	if getter == nil {
 		return nil, nil
 	}
-	return getter.List(ctx, pkg, filters, limit) //nolint:wrapcheck
+	return getter.List(ctx, logE, pkg, filters, limit) //nolint:wrapcheck
 }
 
 func (g *GeneralVersionGetter) get(pkg *registry.PackageInfo) VersionGetter {

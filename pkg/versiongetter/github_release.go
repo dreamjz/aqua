@@ -33,7 +33,9 @@ func (g *GitHubReleaseVersionGetter) Get(ctx context.Context, logE *logrus.Entry
 
 	var respToLog *github.Response
 	defer func() {
-		logGHRateLimit(logE, respToLog)
+		if respToLog != nil {
+			logGHRateLimit(logE, respToLog)
+		}
 	}()
 
 	release, resp, err := g.gh.GetLatestRelease(ctx, repoOwner, repoName)
@@ -76,7 +78,9 @@ func (g *GitHubReleaseVersionGetter) List(ctx context.Context, logE *logrus.Entr
 
 	var respToLog *github.Response
 	defer func() {
-		addRteLimitInfo(logE, respToLog)
+		if respToLog != nil {
+			logE = addRteLimitInfo(logE, respToLog)
+		}
 	}()
 
 	var items []*fuzzyfinder.Item

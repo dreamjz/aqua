@@ -2,7 +2,7 @@
   <picture>
 <!--     <source media="(prefers-color-scheme: dark)" srcset="./logo/aqua_horizontal_white.svg"> -->
 <!--     <img src="./logo/aqua_horizontal.svg" alt="logo" width="400"> -->
-    <img src="https://github.com/dreamjz/aqua/raw/main/logo/aqua_horizontal_konosuba.png" alt="logo" width="900">
+    <img src="https://github.com/dreamjz/aqua/raw/main/logo/aqua_horizontal_konosuba_caption.png" alt="logo" width="900">
   </picture>
 </p>
 
